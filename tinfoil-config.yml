@@ -1,36 +1,35 @@
 shim-version: v0.2.10@sha256:f9040a48106ab06c290fd9b225d4dd53a2daad715c9107594d4310b21592039f
 cvm-version: 0.5.6
-cpus: 32
-memory: 524288
-gpus: full
+cpus: 4
+memory: 4096
+gpus: none
 vllm: false
 
 models:
-  - name: "qwen3-vl-8b"
-    repo: "Qwen/Qwen3-VL-8B-Instruct@0c351dd01ed87e9c1b53cbc748cba10e6187ff3b"
-    mpk: "0ef12c094d96461c05e1683ecafd13bda3d18eb7e4eaaa32a5cde9f39557e396_17545924608_83ca7866-0584-5cb3-bc94-87c0d615dea3"
+  - name: "titan-qwen-0.5b-gguf"
+    repo: "theprint/TiTan-Qwen2.5-0.5B-GGUF"
   
 containers:
-  - name: "qwen3-vl-8b"
+  - name: "titan-qwen-0.5b-gguf"
     image: ""
-    args: [
-      "--runtime", "nvidia",
-      "--ipc", "host",
-      "vllm/vllm-openai:v0.11.0@sha256:014a95f21c9edf6abe0aea6b07353f96baa4ec291c427bb1176dc7c93a85845c",
-      "--model", "/tinfoil/mpk/mpk-0ef12c094d96461c05e1683ecafd13bda3d18eb7e4eaaa32a5cde9f39557e396",
-      "--served-model-name", "qwen3-vl-8b",
-      "--gpu-memory-utilization", "0.95",
-      "--max-model-len", "8192",
-      "--limit-mm-per-prompt.image", "10",
-      "--port", "8001"
-    ]
+    # Empty image means: build from Dockerfile.gguf in this repo
+    # Tinfoil will build the image, which includes gguf_api_server.py
+    args: []
+    env:
+      - "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF"
+      - "PORT=8000"
+      - "CONTEXT_SIZE=8192"
+      - "CUDA_VISIBLE_DEVICES="
 
 shim:
   listen-port: 443
-  upstream-port: 8001
+  upstream-port: 8000
   publish-attestation: false
   tls-challenge: dns  
   control-plane: https://api.tinfoil.sh
   paths:
     - /v1/chat/completions
+    - /health
+    - /v1/models
     - /metrics
+
