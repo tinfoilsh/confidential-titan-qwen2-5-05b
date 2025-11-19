@@ -4,7 +4,7 @@ This repository follows the same structure as other model deployments in the org
 
 ## Structure
 - `tinfoil-config.yml` - Tinfoil deployment configuration
-- `Dockerfile.gguf` - Container build file
+- `Dockerfile` - Container build file
 - `scripts/gguf_api_server.py` - FastAPI server implementation
 - `.github/workflows/build.yml` - CI/CD workflow
 

@@ -11,15 +11,13 @@ models:
   
 containers:
   - name: "titan-qwen-0.5b-gguf"
-    image: ""
-    # Empty image means: build from Dockerfile.gguf in this repo
-    # Tinfoil will build the image, which includes gguf_api_server.py
-    args: []
-    env:
-      - "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF"
-      - "PORT=8000"
-      - "CONTEXT_SIZE=8192"
-      - "CUDA_VISIBLE_DEVICES="
+    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:latest"
+    args: [
+      "-e", "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF",
+      "-e", "PORT=8000",
+      "-e", "CONTEXT_SIZE=8192",
+      "-e", "CUDA_VISIBLE_DEVICES="
+    ]
 
 shim:
   listen-port: 443
