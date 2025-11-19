@@ -1,0 +1,35 @@
+shim-version: v0.2.10@sha256:f9040a48106ab06c290fd9b225d4dd53a2daad715c9107594d4310b21592039f
+cvm-version: 0.5.6
+cpus: 4
+memory: 4096
+gpus: none
+vllm: false
+
+models:
+  - name: "titan-qwen-0.5b-gguf"
+    repo: "theprint/TiTan-Qwen2.5-0.5B-GGUF"
+  
+containers:
+  - name: "titan-qwen-0.5b-gguf"
+    image: ""
+    # Empty image means: build from Dockerfile.gguf in this repo
+    # Tinfoil will build the image, which includes gguf_api_server.py
+    args: []
+    env:
+      - "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF"
+      - "PORT=8000"
+      - "CONTEXT_SIZE=8192"
+      - "CUDA_VISIBLE_DEVICES="
+
+shim:
+  listen-port: 443
+  upstream-port: 8000
+  publish-attestation: false
+  tls-challenge: dns  
+  control-plane: https://api.tinfoil.sh
+  paths:
+    - /v1/chat/completions
+    - /health
+    - /v1/models
+    - /metrics
+
