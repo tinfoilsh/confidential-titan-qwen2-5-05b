@@ -21,6 +21,7 @@ import string
 # ----------------------------
 
 MODEL_NAME = os.getenv("MODEL_NAME", "theprint/TiTan-Qwen2.5-0.5B-GGUF")
+SERVED_MODEL_NAME = os.getenv("SERVED_MODEL_NAME", "titan-qwen-05b")
 MODEL_FILE = os.getenv("MODEL_FILE", "")  # optional explicit gguf path
 PORT = int(os.getenv("PORT", "8000"))
 CONTEXT_SIZE = int(os.getenv("CONTEXT_SIZE", "8192"))
@@ -206,7 +207,7 @@ def clean_title(raw: str) -> str:
 async def health():
     return {
         "status": "healthy",
-        "model": MODEL_NAME,
+        "model": SERVED_MODEL_NAME,
         "device": "cpu",
         "format": "gguf",
     }
@@ -218,7 +219,7 @@ async def list_models():
         "object": "list",
         "data": [
             {
-                "id": MODEL_NAME,
+                "id": SERVED_MODEL_NAME,
                 "object": "model",
                 "created": 1234567890,
                 "owned_by": "llama-cpp",
@@ -349,7 +350,7 @@ Title:"""
         "id": f"chatcmpl-{os.urandom(8).hex()}",
         "object": "chat.completion",
         "created": 1234567890,
-        "model": MODEL_NAME,
+        "model": SERVED_MODEL_NAME,
         "choices": [
             {
                 "index": 0,
