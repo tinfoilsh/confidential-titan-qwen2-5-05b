@@ -39,6 +39,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       
+  release:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+      
       - name: Build and attest with Tinfoil
         uses: tinfoilsh/pri-build-action@v0.5.2
         with:
