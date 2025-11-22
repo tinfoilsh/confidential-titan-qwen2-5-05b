@@ -7,7 +7,7 @@ vllm: false
 
 containers:
   - name: "titan-qwen-0.5b-gguf"
-    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:v0.0.1"
+    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:v0.0.2"
     args: [
       "-e", "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF",
       "-e", "PORT=8000",
