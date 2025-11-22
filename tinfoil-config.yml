@@ -7,9 +7,10 @@ vllm: false
 
 containers:
   - name: "titan-qwen-0.5b-gguf"
-    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:v0.0.2"
+    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:v0.0.3"
     args: [
       "-e", "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF",
+      "-e", "SERVED_MODEL_NAME=titan-qwen2-5-05b",
       "-e", "PORT=8000",
       "-e", "CONTEXT_SIZE=8192",
       "-e", "CUDA_VISIBLE_DEVICES="
@@ -20,7 +21,6 @@ shim:
   upstream-port: 8000
   publish-attestation: false
   tls-challenge: dns  
-  control-plane: https://api.tinfoil.sh
   paths:
     - /v1/chat/completions
     - /health

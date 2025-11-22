@@ -21,7 +21,7 @@ import string
 # ----------------------------
 
 MODEL_NAME = os.getenv("MODEL_NAME", "theprint/TiTan-Qwen2.5-0.5B-GGUF")
-SERVED_MODEL_NAME = os.getenv("SERVED_MODEL_NAME", "titan-qwen-05b")
+SERVED_MODEL_NAME = os.getenv("SERVED_MODEL_NAME", "titan-qwen2-5-05b")
 MODEL_FILE = os.getenv("MODEL_FILE", "")  # optional explicit gguf path
 PORT = int(os.getenv("PORT", "8000"))
 CONTEXT_SIZE = int(os.getenv("CONTEXT_SIZE", "8192"))
