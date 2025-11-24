@@ -147,6 +147,19 @@ def clean_title(raw: str) -> str:
         if t.startswith(prefix):
             t = t[len(prefix):].strip()
 
+    # Remove leading and trailing asterisks (** or *)
+    # Remove leading ** or *
+    while t.startswith("**"):
+        t = t[2:].strip()
+    while t.startswith("*"):
+        t = t[1:].strip()
+    
+    # Remove trailing ** or *
+    while t.endswith("**"):
+        t = t[:-2].strip()
+    while t.endswith("*"):
+        t = t[:-1].strip()
+
     # Remove surrounding quotes
     t = t.strip('"').strip("'").strip()
 
