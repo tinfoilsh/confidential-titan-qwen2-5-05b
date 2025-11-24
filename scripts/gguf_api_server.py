@@ -147,25 +147,13 @@ def clean_title(raw: str) -> str:
         if t.startswith(prefix):
             t = t[len(prefix):].strip()
 
-    # Remove leading and trailing asterisks (** or *)
-    # Remove leading ** or *
-    while t.startswith("**"):
-        t = t[2:].strip()
-    while t.startswith("*"):
-        t = t[1:].strip()
-    
-    # Remove trailing ** or *
-    while t.endswith("**"):
-        t = t[:-2].strip()
-    while t.endswith("*"):
-        t = t[:-1].strip()
-
     # Remove surrounding quotes
     t = t.strip('"').strip("'").strip()
 
-    # Remove only problematic punctuation, keep basic ones that might be in titles
-    # Remove: quotes, brackets, but keep basic punctuation that might be needed
-    problematic = '"\'()[]{}<>'
+    # Remove all special characters that shouldn't be in titles
+    # Remove: quotes, brackets, markdown characters, and other problematic chars
+    # Keep: basic punctuation like commas, periods, colons, semicolons, hyphens, ampersands
+    problematic = '"\'()[]{}<>*_`~^'
     t = t.translate(str.maketrans("", "", problematic))
 
     # Collapse multiple spaces
