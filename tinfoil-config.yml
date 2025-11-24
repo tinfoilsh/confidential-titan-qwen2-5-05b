@@ -1,4 +1,4 @@
-shim-version: v0.2.10@sha256:f9040a48106ab06c290fd9b225d4dd53a2daad715c9107594d4310b21592039f
+shim-version: v0.2.11@sha256:cbbbeeac855948610cd1ba5b406d10ffa13331cbbe7d25964ba3c90486f65810
 cvm-version: 0.5.6
 cpus: 4
 memory: 4096
@@ -7,7 +7,7 @@ vllm: false
 
 containers:
   - name: "titan-qwen-0.5b-gguf"
-    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:v0.0.3"
+    image: "ghcr.io/tinfoilsh/titan-qwen-0.5b-gguf:v0.0.4"
     args: [
       "-e", "MODEL_NAME=theprint/TiTan-Qwen2.5-0.5B-GGUF",
       "-e", "SERVED_MODEL_NAME=titan-qwen2-5-05b",
